@@ -59,7 +59,7 @@ func (h *handlerV1) PostGet(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, res)
+	h.handleResponse(c, models.OK, res)
 }
 
 
@@ -86,7 +86,7 @@ func (h *handlerV1) PostUpdate(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, gin.H{
+	h.handleResponse(c, models.OK, gin.H{
 		"ok":      true,
 		"message": "updated successfully",
 	})
@@ -116,7 +116,7 @@ func (h *handlerV1) PostDelete(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, gin.H{
+	h.handleResponse(c, models.OK, gin.H{
 		"ok":      true,
 		"message": "deleted successfully",
 	})

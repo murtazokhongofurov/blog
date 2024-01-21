@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
 // @ID 			 postcomment
 // @Router		/comment [POST]
 // @Summary		post comment
@@ -34,7 +33,6 @@ func (h *handlerV1) CommentCreate(c *gin.Context) {
 	h.handleResponse(c, models.Created, res)
 }
 
-
 // @ID 			 getcomment
 // @Router		/comment [GET]
 // @Summary		get comment
@@ -59,9 +57,8 @@ func (h *handlerV1) CommentGet(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, res)
+	h.handleResponse(c, models.OK, res)
 }
-
 
 // @ID 			 udpatecomment
 // @Router		/comment [PUT]
@@ -86,12 +83,11 @@ func (h *handlerV1) CommentUpdate(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, gin.H{
+	h.handleResponse(c, models.OK, gin.H{
 		"ok":      true,
 		"message": "updated successfully",
 	})
 }
-
 
 // @ID 			 deltecomment
 // @Router		/comment [DELETE]
@@ -111,12 +107,12 @@ func (h *handlerV1) CommentDelete(c *gin.Context) {
 		h.handleResponse(c, models.BadRequest, err.Error())
 		return
 	}
-	err = h.Storage.Blog().UserDel(comId)
+	err = h.Storage.Blog().CommentDel(comId)
 	if err != nil {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, gin.H{
+	h.handleResponse(c, models.OK, gin.H{
 		"ok":      true,
 		"message": "deleted successfully",
 	})

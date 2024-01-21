@@ -58,7 +58,7 @@ func (h *handlerV1) UserGet(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, res)
+	h.handleResponse(c, models.OK, res)
 }
 
 // @ID 			 putuser
@@ -84,7 +84,7 @@ func (h *handlerV1) UserUpdate(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, gin.H{
+	h.handleResponse(c, models.OK, gin.H{
 		"ok":      true,
 		"message": "updated successfully",
 	})
@@ -113,7 +113,7 @@ func (h *handlerV1) UserDelete(c *gin.Context) {
 		h.handleResponse(c, models.InternalServerError, err.Error())
 		return
 	}
-	h.handleResponse(c, models.Created, gin.H{
+	h.handleResponse(c, models.OK, gin.H{
 		"ok":      true,
 		"message": "deleted successfully",
 	})

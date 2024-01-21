@@ -2,9 +2,10 @@ package v1
 
 import (
 	"github.com/blog/config"
-	v1 "github.com/blog/internal/controller/http/v1"
-	"github.com/blog/internal/storage"
 	_ "github.com/blog/internal/controller/http/docs" // docs
+	v1 "github.com/blog/internal/controller/http/v1"
+	"github.com/blog/internal/middleware"
+	"github.com/blog/internal/storage"
 	"github.com/blog/pkg/logger"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -17,8 +18,6 @@ type Options struct {
 	Storage storage.StorageI
 	Log     logger.Logger
 }
-
-
 
 // @title           Blog API
 // @version         1.0
@@ -33,6 +32,7 @@ type Options struct {
 // @name Authorization
 func New(opt *Options) *gin.Engine {
 	router := gin.New()
+	basicAuth := middleware.BasicAuth()
 
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
@@ -51,6 +51,8 @@ func New(opt *Options) *gin.Engine {
 		Log:     opt.Log,
 	})
 
+	router.Use(basicAuth.Middleware)
+	
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"message": "Server is running!!!",

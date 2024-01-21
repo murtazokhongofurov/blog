@@ -1,6 +1,8 @@
 package db
 
-import "github.com/blog/internal/controller/http/models"
+import (
+	"github.com/blog/internal/controller/http/models"
+)
 
 func (r storagePg) CommentPost(req *models.CommentReq) (*models.CommentRes, error) {
 	res := models.CommentRes{}
@@ -8,7 +10,7 @@ func (r storagePg) CommentPost(req *models.CommentReq) (*models.CommentRes, erro
 	INSERT INTO comment(
 		post_id, user_id, text
 	)
-	VALUES($1) RETURNING id, post_id, user_id, text, created_at
+	VALUES($1, $2, $3) RETURNING id, post_id, user_id, text, created_at
 	`
 	err := r.db.QueryRow(query, req.PostId, req.UserId, req.Text).Scan(
 		&res.Id, &res.PostId, &res.UserId, &res.Text, &res.CreatedAt,

@@ -23,6 +23,7 @@ func (r storagePg) UserGet(id int) (*models.UserRes, error) {
 	res := models.UserRes{}
 	query := `
 	SELECT
+	 	id,
 		full_name, 
 		login, 
 		password, 
