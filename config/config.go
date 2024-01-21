@@ -24,9 +24,9 @@ type Config struct {
 	SmtpHost     string
 }
 
-func Load() Config {
+func Load(path string) Config {
 	c := Config{}
-	if err := godotenv.Load(".env"); err != nil {
+	if err := godotenv.Load(path + ".env"); err != nil {
 		log.Fatalln("Error read .env: ", err)
 	}
 
