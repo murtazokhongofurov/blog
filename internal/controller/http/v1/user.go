@@ -7,6 +7,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Register User
+// @ID 			 adduser
+// @Router		/user [POST]
+// @Summary		add user
+// @Tags        User
+// @Description	Here user will be registred
+// @Accept 		json
+// @Produce		json
+// @Param 		body body models.UserReq true "User"
+// @Success 	201 {object} models.Response{data=models.UserRes} "User data"
+// @Response 	400 {object} models.Response{data=string} "Bad Request"
+// @Failure 	500 {object} models.Response{data=string} "Server Error"
 func (h *handlerV1) UserRegister(c *gin.Context) {
 	body := models.UserReq{}
 	err := c.ShouldBindJSON(&body)
@@ -22,6 +34,17 @@ func (h *handlerV1) UserRegister(c *gin.Context) {
 	h.handleResponse(c, models.Created, res)
 }
 
+// @ID 			 getuser
+// @Router		/user [GET]
+// @Summary		get user
+// @Tags        User
+// @Description	Here user will be give data
+// @Accept 		json
+// @Produce		json
+// @Param 		id  query int true "UserInfo"
+// @Success 	200 {object} models.Response{data=models.UserRes} "User data"
+// @Response 	400 {object} models.Response{data=string} "Bad Request"
+// @Failure 	500 {object} models.Response{data=string} "Server Error"
 func (h *handlerV1) UserGet(c *gin.Context) {
 	id := c.Query("id")
 	userId, err := strconv.Atoi(id)
@@ -38,6 +61,17 @@ func (h *handlerV1) UserGet(c *gin.Context) {
 	h.handleResponse(c, models.Created, res)
 }
 
+// @ID 			 putuser
+// @Router		/user [PUT]
+// @Summary		PUT user
+// @Tags        User
+// @Description	Here user will be updated
+// @Accept 		json
+// @Produce		json
+// @Param 		body body models.UserRes true "User"
+// @Success 	200 {object} models.Response{data=models.Response} "User data"
+// @Response 	400 {object} models.Response{data=string} "Bad Request"
+// @Failure 	500 {object} models.Response{data=string} "Server Error"
 func (h *handlerV1) UserUpdate(c *gin.Context) {
 	body := models.UserRes{}
 	err := c.ShouldBindJSON(&body)
@@ -56,6 +90,17 @@ func (h *handlerV1) UserUpdate(c *gin.Context) {
 	})
 }
 
+// @ID 			 deleteuser
+// @Router		/user [DELETE]
+// @Summary		delete user
+// @Tags        User
+// @Description	Here user will be deleted
+// @Accept 		json
+// @Produce		json
+// @Param 		id query int true "Delete User"
+// @Success 	200 {object} models.Response{data=models.Response} "data"
+// @Response 	400 {object} models.Response{data=string} "Bad Request"
+// @Failure 	500 {object} models.Response{data=string} "Server Error"
 func (h *handlerV1) UserDelete(c *gin.Context) {
 	id := c.Query("id")
 	userId, err := strconv.Atoi(id)

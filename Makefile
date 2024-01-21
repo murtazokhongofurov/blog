@@ -8,7 +8,7 @@ run:
 	go run cmd/main.go
 
 migrate_file:
-	migrate create -ext sql -dir migrations -seq 
+	migrate create -ext sql -dir migrations -seq post
 
 migrate_up:
 	migrate -path migrations -database "$(DB_URL)" -verbose up
@@ -20,4 +20,4 @@ migrate_forse:
 	migrate -path migrations -database "$(DB_URL)" -verbose forse 5
 
 swag:
-	swag init -g api/router.go  -o api/docs
+	swag init -g internal/controller/http/router.go  -o internal/controller/http/docs

@@ -1,0 +1,632 @@
+basePath: /v1
+definitions:
+  models.CommentReq:
+    properties:
+      post_id:
+        type: integer
+      text:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.CommentRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      post_id:
+        type: integer
+      text:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.PostReq:
+    properties:
+      post_image:
+        type: string
+      text:
+        type: string
+      title:
+        type: string
+    type: object
+  models.PostRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      post_image:
+        type: string
+      text:
+        type: string
+      title:
+        type: string
+    type: object
+  models.Response:
+    properties:
+      data: {}
+      description:
+        type: string
+      status:
+        type: string
+    type: object
+  models.UserReq:
+    properties:
+      full_name:
+        type: string
+      login:
+        type: string
+      password:
+        type: string
+      photo:
+        type: string
+    type: object
+  models.UserRes:
+    properties:
+      created_at:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: integer
+      login:
+        type: string
+      password:
+        type: string
+      photo:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample server celler server.
+  termsOfService: http://swagger.io/terms/
+  title: Blog API
+  version: "1.0"
+paths:
+  /comment:
+    delete:
+      consumes:
+      - application/json
+      description: Here comment will be deleted
+      operationId: deltecomment
+      parameters:
+      - description: CommentInfo
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: comment data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Response'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: delete comment
+      tags:
+      - Comment
+    get:
+      consumes:
+      - application/json
+      description: Here comment will be give data
+      operationId: getcomment
+      parameters:
+      - description: CommentInfo
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: comment data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.CommentRes'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: get comment
+      tags:
+      - Comment
+    post:
+      consumes:
+      - application/json
+      description: Here comment will be created
+      operationId: postcomment
+      parameters:
+      - description: CommentInfo
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: comment data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.CommentRes'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: post comment
+      tags:
+      - Comment
+    put:
+      consumes:
+      - application/json
+      description: Here comment will be update
+      operationId: udpatecomment
+      parameters:
+      - description: CommentData
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentRes'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: comment data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Response'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: update comment
+      tags:
+      - Comment
+  /post:
+    delete:
+      consumes:
+      - application/json
+      description: Here post will be deleted
+      operationId: deltepost
+      parameters:
+      - description: PostInfo
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: post data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Response'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: delete post
+      tags:
+      - Post
+    get:
+      consumes:
+      - application/json
+      description: Here post will be give data
+      operationId: getpost
+      parameters:
+      - description: PostInfo
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: post data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PostRes'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: get post
+      tags:
+      - Post
+    post:
+      consumes:
+      - application/json
+      description: Here post will be give data
+      operationId: addpost
+      parameters:
+      - description: Post Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: post data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PostRes'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: get post
+      tags:
+      - Post
+    put:
+      consumes:
+      - application/json
+      description: Here post will be updated
+      operationId: putpost
+      parameters:
+      - description: Post Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostRes'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: post data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Response'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: PUT post
+      tags:
+      - Post
+  /user:
+    delete:
+      consumes:
+      - application/json
+      description: Here user will be deleted
+      operationId: deleteuser
+      parameters:
+      - description: Delete User
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Response'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: delete user
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: Here user will be give data
+      operationId: getuser
+      parameters:
+      - description: UserInfo
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UserRes'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: get user
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: Here user will be registred
+      operationId: adduser
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UserRes'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: add user
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Here user will be updated
+      operationId: putuser
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRes'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User data
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Response'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: PUT user
+      tags:
+      - User
+securityDefinitions:
+  BasicAuth:
+    type: basic
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

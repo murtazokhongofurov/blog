@@ -4,9 +4,12 @@ import (
 	"github.com/blog/config"
 	v1 "github.com/blog/internal/controller/http/v1"
 	"github.com/blog/internal/storage"
+	_ "github.com/blog/internal/controller/http/docs" // docs
 	"github.com/blog/pkg/logger"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Options struct {
@@ -15,6 +18,19 @@ type Options struct {
 	Log     logger.Logger
 }
 
+
+
+// @title           Blog API
+// @version         1.0
+// @description     This is a sample server celler server.
+// @termsOfService  http://swagger.io/terms/
+
+// @BasePath  /v1
+
+// @securityDefinitions.basic  BasicAuth
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 func New(opt *Options) *gin.Engine {
 	router := gin.New()
 
@@ -44,14 +60,12 @@ func New(opt *Options) *gin.Engine {
 	api := router.Group("/v1")
 
 	user := api.Group("/user")
-
 	user.POST("", handlerV1.UserRegister)
 	user.GET("", handlerV1.UserGet)
 	user.PUT("", handlerV1.UserUpdate)
 	user.DELETE("", handlerV1.UserDelete)
 
 	post := api.Group("/post")
-
 	post.POST("", handlerV1.PostCreate)
 	post.GET("", handlerV1.PostGet)
 	post.PUT("", handlerV1.PostUpdate)
@@ -63,5 +77,7 @@ func New(opt *Options) *gin.Engine {
 	comment.PUT("", handlerV1.CommentUpdate)
 	comment.DELETE("", handlerV1.CommentDelete)
 
+	url := ginSwagger.URL("swagger/doc.json")
+	api.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	return router
 }
